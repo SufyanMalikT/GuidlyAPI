@@ -9,9 +9,7 @@ from .serializers import (
 )
 from .permissions import IsStudent, IsConsultant, IsAdmin
 
-# ------------------------------
-# STUDENT VIEWSET
-# ------------------------------
+
 class StudentViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
@@ -37,9 +35,7 @@ class StudentViewSet(ModelViewSet):
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-# ------------------------------
-# CONSULTANT VIEWSET
-# ------------------------------
+
 class ConsultantViewSet(ModelViewSet):
     queryset = Consultant.objects.all()
     serializer_class = ConsultantSerializer
@@ -62,9 +58,7 @@ class ConsultantViewSet(ModelViewSet):
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-# ------------------------------
-# PROGRAM VIEWSET
-# ------------------------------
+
 class ProgramViewSet(ModelViewSet):
     queryset = Program.objects.all()
     serializer_class = ProgramSerializer
@@ -76,9 +70,7 @@ class ProgramViewSet(ModelViewSet):
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-# ------------------------------
-# APPLICATION VIEWSET
-# ------------------------------
+
 class ApplicationViewSet(ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
@@ -114,9 +106,7 @@ class ApplicationViewSet(ModelViewSet):
             raise ValidationError("Only students can create applications.")
         serializer.save(student=user.student_profile)
 
-# ------------------------------
-# PAYMENT VIEWSET
-# ------------------------------
+
 class PaymentViewSet(ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer

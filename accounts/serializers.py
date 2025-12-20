@@ -28,7 +28,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     phone = serializers.CharField(required=False, allow_null=True)
     preferred_country = serializers.CharField(required=False, allow_null=True)
-
+    date_of_birth = serializers.DateTimeField(required=False,allow_null=True)
     class Meta:
         model = CustomUser
         fields = [

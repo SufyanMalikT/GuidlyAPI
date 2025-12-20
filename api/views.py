@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import *
 from .serializers import *
 from .permissions import *
+from rest_framework.decorators import action
 
 
 class StudentViewSet(ModelViewSet):
@@ -58,11 +59,23 @@ class ApplicationViewSet(ModelViewSet):
         if self.action == 'destroy':
             return [IsAdmin()]
         return [IsAuthenticated()]
+    
 
 
 class PaymentViewSet(ModelViewSet):
     serializer_class = PaymentSerializer
-    permission_classes = [IsAdmin]
 
     def get_queryset(self):
+        user = self.request.user
+        if user.role == 'student':
+            return Payment.objects.filter(application__student__user=user)
+        elif user.role == 'consultant':
+            return Payment.objects.filter(application__consultant__user=user)
         return Payment.objects.all()
+    
+    def get_permissions(self):
+        if self.action in ['list','retrieve']:
+            return [IsAuthenticated()]
+        else:
+            return [IsAdmin()]
+

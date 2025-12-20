@@ -4,7 +4,7 @@ from .models import CustomUser
 from .serializers import CustomUserSerializer, CustomTokenObatinPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from api.permissions import IsAdmin,IsConsultant,IsStudent
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 # Create your views here.
 
 from rest_framework.viewsets import ModelViewSet
@@ -49,7 +49,7 @@ class CustomUserViewSet(ModelViewSet):
             permission_classes = [IsAdmin]
 
         elif self.action == 'create':
-            permission_classes = [IsAdmin]
+            permission_classes = [AllowAny]
 
         elif self.action in ['retrieve', 'update', 'partial_update']:
             permission_classes = [IsAuthenticated]
